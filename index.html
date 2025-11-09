@@ -31,7 +31,7 @@
     vr-mode-ui="enabled: false;"
     renderer="logarithmicDepthBuffer: true;"
     embedded
-    arjs="trackingMethod: best; sourceType: webcam;debugUIEnabled: true;"
+    arjs="trackingMethod: best; sourceType: webcam; debugUIEnabled: true;"
   >
     <a-nft
       type="nft"
@@ -41,21 +41,18 @@
       smoothTolerance=".01"
       smoothThreshold="5"
     >
+      <!-- BIG red box for easy visibility -->
       <a-box
-    position="0 0.5 0"
-    material="color: red;"
-    scale="1 1 1"
-  ></a-box>
-
-  <!-- Your original model -->
-  <a-entity
-    gltf-model="./scene.gltf"
-    scale="5 5 5"
-    position="0 0 0"
-  >
-
+        position="0 0 0"
+        material="color: red; opacity: 1;"
+        scale="2 2 2"
+      ></a-box>
     </a-nft>
 
     <a-entity camera></a-entity>
   </a-scene>
+
+  <!-- Mobile debug console -->
+  <script src="https://cdn.jsdelivr.net/npm/eruda"></script>
+  <script>eruda.init();</script>
 </body>
