@@ -41,12 +41,18 @@
       smoothTolerance=".01"
       smoothThreshold="5"
     >
-      <a-entity
-        gltf-model="./scene.gltf"
-        scale="5 5 5"
-        position="0 0 0"
-      >
-      </a-entity>
+      <a-box
+    position="0 0.5 0"
+    material="color: red;"
+    scale="1 1 1"
+  ></a-box>
+
+  <!-- Your original model -->
+  <a-entity
+    gltf-model="./scene.gltf"
+    scale="5 5 5"
+    position="0 0 0"
+  >
 
     </a-nft>
 
