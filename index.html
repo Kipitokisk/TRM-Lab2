@@ -51,7 +51,7 @@
         ></a-entity>
     </a-nft>
     
-    <!-- Second NFT-->
+    <!-- Second NFT (shows fire extinguisher only after first marker scanned) -->
     <a-nft
         id="secondMarker"
         type="nft"
@@ -62,10 +62,30 @@
         smoothThreshold="5"
     >
       <a-entity
-        id="trexModel"
+        id="fireExtinguisherModel"
         position="0 0 0"
         scale="50 50 50"
         gltf-model="fire_extinguisher.glb"
+        rotation="0 0 0"
+        visible="false"
+      ></a-entity>
+    </a-nft>
+
+    <!-- Third NFT (NFT4) - tvman_smoke appears only after second marker scanned -->
+    <a-nft
+        id="thirdMarker"
+        type="nft"
+        url="./markers/NFT4"
+        smooth="true"
+        smoothCount="10"
+        smoothTolerance=".01"
+        smoothThreshold="5"
+    >
+      <a-entity
+        id="tvmanSmokeModel"
+        position="0 0 0"
+        scale="50 50 50"
+        gltf-model="tvman_smoke.glb"
         rotation="0 0 0"
         visible="false"
       ></a-entity>
@@ -74,36 +94,56 @@
     <a-entity camera></a-entity>
   </a-scene>
 
-  <script>
+    <script>
     let firstMarkerScanned = false;
+    let secondMarkerScanned = false;
 
-    // Wait for the scene to load
     document.querySelector('a-scene').addEventListener('loaded', function() {
       const firstMarker = document.querySelector('#firstMarker');
       const secondMarker = document.querySelector('#secondMarker');
-      const trexModel = document.querySelector('#trexModel');
+      const thirdMarker = document.querySelector('#thirdMarker');
+      const fireExtinguisherModel = document.querySelector('#fireExtinguisherModel');
+      const tvmanSmokeModel = document.querySelector('#tvmanSmokeModel');
 
-      // Listen for when the first marker is found
+      // When first marker found
       firstMarker.addEventListener('markerFound', function() {
-        console.log('First marker (cats) found!');
+        console.log('First marker found!');
         firstMarkerScanned = true;
       });
 
-      // Listen for when the second marker is found
+      // When second marker found
       secondMarker.addEventListener('markerFound', function() {
         console.log('Second marker found!');
-        // Only show the T-Rex if the first marker has been scanned
+        // Only show the 2nd entity if first marker was scanned
         if (firstMarkerScanned) {
-          trexModel.setAttribute('visible', 'true');
-          console.log('T-Rex is now visible!');
+          fireExtinguisherModel.setAttribute('visible', 'true');
+          secondMarkerScanned = true;
+          console.log('Fire extinguisher is now visible!');
         } else {
           console.log('First marker must be scanned first!');
         }
       });
 
-      // Hide T-Rex when second marker is lost
+      // Hide Fire Extinguisher when second marker is lost
       secondMarker.addEventListener('markerLost', function() {
-        trexModel.setAttribute('visible', 'false');
+        fireExtinguisherModel.setAttribute('visible', 'false');
+        secondMarkerScanned = false;
+      });
+
+      // When third marker (NFT4) found — show tvman_smoke only if second marker was scanned
+      thirdMarker.addEventListener('markerFound', function() {
+        console.log('Third marker found!');
+        if (secondMarkerScanned) {
+          tvmanSmokeModel.setAttribute('visible', 'true');
+          console.log('tvman_smoke is now visible!');
+        } else {
+          console.log('Second marker must be scanned first!');
+        }
+      });
+
+      // Hide tvman_smoke when third marker is lost
+      thirdMarker.addEventListener('markerLost', function() {
+        tvmanSmokeModel.setAttribute('visible', 'false');
       });
     });
   </script>
