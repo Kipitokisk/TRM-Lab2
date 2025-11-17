@@ -104,24 +104,6 @@
         rotation="-90 0 0"
         visible="false"
       ></a-entity>
-      <a-entity
-        id="tvmanSmokeModel2"
-        class="tvmanSmoke"
-        position="100 -200 -200"
-        scale="10 10 10"
-        gltf-model="tvman_smoke.glb"
-        rotation="-90 0 0"
-        visible="false"
-      ></a-entity>
-      <a-entity
-        id="tvmanSmokeModel3"
-        class="tvmanSmoke"
-        position="100 -270 -270"
-        scale="10 10 10"
-        gltf-model="tvman_smoke.glb"
-        rotation="-90 0 0"
-        visible="false"
-      ></a-entity>
       <a-text value="#3 - Last image" align="center" color="#FFFFFF" width="8" position="0 -20 -20" rotation="-90 0 0" scale="50 50 50"></a-text>
     </a-nft>
     <a-entity camera></a-entity>
@@ -167,8 +149,8 @@
       thirdMarker.addEventListener('markerFound', function() {
         console.log('Third marker found!');
         if (secondMarkerScanned) {
-          tvmanSmokeModels.forEach(function(m){ m.setAttribute('visible', 'true'); });
-          console.log('tvman_smoke models are now visible!');
+          tvmanSmokeModels.setAttribute('visible', 'true');
+          console.log('tvman_smoke model is now visible!');
         } else {
           console.log('Second marker must be scanned first!');
         }
@@ -176,7 +158,7 @@
 
       // Hide tvman_smoke when third marker is lost
       thirdMarker.addEventListener('markerLost', function() {
-        tvmanSmokeModels.forEach(function(m){ m.setAttribute('visible', 'false'); });
+        tvmanSmokeModels.setAttribute('visible', 'false');
       });
     });
   </script>
